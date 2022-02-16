@@ -1,0 +1,28 @@
+# KST3420 Packets Types
+
+## Uplink
+
+One payload is sent with both Distance, Ambient Light, Reflected Light, and 
+Battery packets concatenated.
+
+Check the documentation in the Javascript Parser for more detail.
+
+Example: `0082020041008902383500650294000078021146`
+
+| Packet Type   | Key      | Length | Value    |
+|---------------|----------|--------|----------|
+| Distance (mm) | `0x0082` | `0x02` | `0x0041` |
+| Reflection    | `0x0089` | `0x02` | `0x3835` |
+| Ambient       | `0x0065` | `0x02` | `0x9400` |
+| Battery       | `0x0078` | `0x02` | `0x1146` |
+
+
+## Downlink
+
+A downlink payload can be sent to change the uplink interval time in minutes.
+
+Example: `0100010D` = Set Uplink Interval to 15mins
+
+| Packet Type     | Key      | Length | Value           |
+|-----------------|----------|--------|-----------------|
+| Uplink Interval | `0x0100` | `0x01` | `0x0D` (15mins) |
