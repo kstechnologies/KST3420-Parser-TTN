@@ -2,8 +2,9 @@
  * @file     KST3420-Parser-TTN.js
  * @brief    Parser for KST3420 for use on The Things Network (TTN)
  * @author   BK
- * @version  1.0.0
- * @date     2022-02-10
+ * @author   DS
+ * @version  1.1.0
+ * @date     2022-02-24
  */
 /* {{{ ------------------------------------------------------------------ */
 /** 
@@ -87,7 +88,9 @@ function decodeUplink(input) {
     var reflectivityFloat = 0xFFFF;
     var ambientFloat = 0xFFFF;
     var batteryFloat = 0xFFFF;
-    var error = 1;
+    var errorDistance = 1;
+    var errorReflectivity = 1;
+    var errorAmbient = 1;
 
     // Battery (mV): Mask to make sure your final answer is just 2-bytes
     batteryFloat = ((bytes[18] & 0x00FF) << 8) | (bytes[19] & 0x00FF);
@@ -99,30 +102,30 @@ function decodeUplink(input) {
 
     // Distance (mm): Mask to make sure your final answer is just 2-bytes
     distanceInt = ((bytes[3] & 0x00FF) << 8) | (bytes[4] & 0x00FF);
-    if( distanceInt == 0xFFFF ) {
-        error = 1;
+    if( distanceInt >= 0xFDE8 ) {
+        errorDistance = 1;
     } else if( distanceInt > 0x0000 ) {
-        error = 0;
+        errorDistance = 0;
     }    
 
     // Reflectivity
     reflectivityFloat = ((bytes[8] & 0x00FF) << 8) | (bytes[9] & 0x00FF);
     if( reflectivityFloat == 0xFFFF ) {
-        error = 1;
+        errorReflectivity = 1;
     } else if( reflectivityFloat > 0x0000 ) {
         reflectivityFloat = reflectivityFloat / 65535.0
         reflectivityFloat = Number(reflectivityFloat.toFixed(3))
-        error = 0;
+        errorReflectivity = 0;
     } 
 
     // Ambient
     ambientFloat = ((bytes[13] & 0x00FF) << 8) | (bytes[14] & 0x00FF);
     if( ambientFloat == 0xFFFF ) {
-        error = 1;
+        errorAmbient = 1;
     } else if( ambientFloat > 0x0000 ) {
         ambientFloat = ambientFloat / 65535.0
         ambientFloat = Number(ambientFloat.toFixed(3))
-        error = 0;
+        errorAmbient = 0;
     } 
 
     // JSON Packet gets set to the server
@@ -132,7 +135,10 @@ function decodeUplink(input) {
             reflectivity: reflectivityFloat,
             ambient: ambientFloat,
             battery: batteryFloat,
-            error: error
+            errorDistance: errorDistance,
+            errorReflectivity: errorReflectivity,
+            errorAmbient: errorAmbient
+
         }
     };
 }
