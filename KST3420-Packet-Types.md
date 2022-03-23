@@ -21,8 +21,8 @@ Example: `0082020041008902383500650294000078021146`
 
 A downlink payload can be sent to change the uplink interval time in minutes.
 
-Example: `0100010D` = Set Uplink Interval to 15mins
+Example: `0100010F` = Set Uplink Interval to 15mins
 
 | Packet Type     | Key      | Length | Value           |
 |-----------------|----------|--------|-----------------|
-| Uplink Interval | `0x0100` | `0x01` | `0x0D` (15mins) |
+| Uplink Interval | `0x0100` | `0x01` | `0x0F` (15mins) |
