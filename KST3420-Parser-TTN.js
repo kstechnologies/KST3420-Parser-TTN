@@ -50,9 +50,9 @@
 function decodeUplink(input) {
 
     /*
-    The following examples show how to parse the temperature uplink.
+    The following examples show how to parse the ditance uplink.
     KST uses concatenated Key-Length-Value decoding for all of its
-    LoRaWAN Uplinks. Following are the keys for the KST3620:
+    LoRaWAN Uplinks. Following are the keys for the KST3420:
     0x0082 > Distance
     0x0089 > Relative Refletivity of the Detected Object
     0x0065 > Relative Ambient Light Level
