@@ -9,12 +9,12 @@ Check the documentation in the Javascript Parser for more detail.
 
 Example: `0082020041008902383500650294000078021146`
 
-| Packet Type   | Key      | Length | Value    |
-|---------------|----------|--------|----------|
-| Distance (mm) | `0x0082` | `0x02` | `0x0041` |
-| Reflection    | `0x0089` | `0x02` | `0x3835` |
-| Ambient       | `0x0065` | `0x02` | `0x9400` |
-| Battery       | `0x0078` | `0x02` | `0x1146` |
+| Packet Type   | Key      | Length | Value    | Decoded Value |
+|---------------|----------|--------|----------|---------------|
+| Distance (mm) | `0x0082` | `0x02` | `0x0041` | 65mm          |
+| Reflection    | `0x0089` | `0x02` | `0x3835` | 14,389 mcps   |
+| Ambient       | `0x0065` | `0x02` | `0x9400` | 37,888 mcps   |
+| Battery       | `0x0078` | `0x02` | `0x1146` | 4,422mV       |
 
 
 ## Downlink
